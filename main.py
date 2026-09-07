@@ -40,15 +40,35 @@ def find_highest_scorer(students):
 
 def add_student(students):
     student_ID = input("Enter student ID: ")
+
+    for student in students:
+        if student["ID"]==student_ID:
+            print("Student ID already exists")
+            return students
     name = input("Enter student name: ")
     marks = input("Enter marks: ")
 
+    if student_ID=="":
+        print("Student ID cannot be empty!")
+        return students
+    if name=="":
+        print("Student Name cannot be empty!")
+        return students
+    try:
+        marks = int(marks)
+    except ValueError:
+        print("Marks has to be a number")
+    if marks<0 or marks>100:
+        print("Marks must be between 0 and 100!")
+        return students
+    
     student = {
         "ID": student_ID,
         "Name": name,
         "Marks": marks
     }
     students.append(student)
+    print("Student added successfully!")
     return students
 
 def save_students(students):
@@ -68,8 +88,20 @@ def update_student(students):
             new_name = input("Enter updated Name: ")
             new_marks = input("Enter updated Marks: ")
 
+            if new_name=="":
+                print("Student Name cannot be empty!")
+                return students
+            try:
+                new_marks = int(marks)
+            except ValueError:
+                print("Marks has to be a number")
+
+            if new_marks<0 or new_marks>100:
+                print("Marks must be between 0 and 100!")
+                return students
             student["Name"]=new_name
             student["Marks"]=new_marks
+
             print("Student updated successfully!")
             return students
 
